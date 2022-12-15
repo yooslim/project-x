@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  project-x-server-service:
+    image: yooslim/project-x-server:${SERVER_TAG_NAME:-latest}
+    container_name: project_x_server
+    restart: always
+    environment:
+      - BACKEND_SERVICE=project-x-app-service:9000
+    ports:
+      - 9777:80
+    depends_on:
+      - project-x-app-service
+    networks:
+      - frontend
+      - backend
+
+  project-x-app-service:
+    image: yooslim/project-x-app:${APP_TAG_NAME:-latest}
+    container_name: project_x_app
+    restart: always
+    depends_on:
+      - project-x-database-service
+    networks:
+      - backend
+
+  project-x-database-service:
+    image: postgres:alpine
+    container_name: project_x_database
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:

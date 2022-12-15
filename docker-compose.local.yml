@@ -1,0 +1,66 @@
+version: '3.8'
+services:
+  project-x-server-service:
+    image: yooslim/project-x-server:latest
+    container_name: project_x_server
+    restart: always
+    environment:
+      - BACKEND_SERVICE=project-x-app-service:9000
+    ports:
+      - 9778:80
+    depends_on:
+      - app-service
+    networks:
+      - frontend
+      - backend
+
+  project-x-app-service:
+    image: yooslim/project-x-app:local
+    container_name: project_x_app
+    restart: always
+    volumes:
+      - ./composer.json:/var/www/html/composer.json:consistent
+      - ./composer.lock:/var/www/html/composer.lock:consistent
+      - ./.env:/var/www/html/.env:consistent
+      - ./app:/var/www/html/app:consistent
+      - ./bootstrap:/var/www/html/bootstrap:consistent
+      - ./config:/var/www/html/config:consistent
+      - ./database:/var/www/html/database:consistent
+      - ./domains:/var/www/html/domains:consistent
+      - ./lang:/var/www/html/lang:consistent
+      - ./public:/var/www/html/public:consistent
+      - ./resources:/var/www/html/resources:consistent
+      - ./routes:/var/www/html/routes:consistent
+      - ./tests:/var/www/html/tests:consistent
+      - ./phpunit.xml:/var/www/html/phpunit.xml:consistent
+      - ./vendor:/var/www/html/vendor:consistent
+    depends_on:
+      - project-x-database-service
+    networks:
+      - backend
+
+  project-x-database-service:
+    image: postgres:alpine
+    container_name: project_x_database
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    networks:
+      - backend
+
+  project-x-database-testing-service:
+    image: postgres:alpine
+    container_name: project_x_database_testing
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:

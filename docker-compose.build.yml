@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  project-x-app-service:
+    image: yooslim/project-x-app:${APP_TAG_NAME:-local}
+    build:
+      context: ./
+      dockerfile: Dockerfile
