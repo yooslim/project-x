@@ -7,7 +7,7 @@ on:
     branches: [ "main", "dev" ]
 
 jobs:
-  phpunit:
+  Testing:
     runs-on: ubuntu-latest
     container:
       image: yooslim/php8-fpm:latest
