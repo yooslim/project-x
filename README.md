@@ -43,7 +43,7 @@ The API lets you manage (access, create, edit and delete) cities with their coor
 `docker-compose -f docker-compose.local.yml up -d`
 
 ### 3. FOR TESTERS
-#### A version of the docker image is already hosted on docker hub, so you can pull it directly without pulling and building
+#### A version of the docker image is already hosted on docker hub, so you can pull it directly without pulling and building the project locally
 `APP_TAG_NAME=v1.0.0 docker-compose -f docker-compose.test.yml up -d`
 
 ### 4. FOR ALL
