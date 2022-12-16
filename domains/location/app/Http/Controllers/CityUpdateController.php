@@ -3,6 +3,7 @@
 namespace Domains\Location\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+
 use Domains\Location\Exceptions\CityNotFoundException;
 use Domains\Location\Http\Requests\CityUpdateRequest;
 use Domains\Location\Http\Resources\CityResource;
