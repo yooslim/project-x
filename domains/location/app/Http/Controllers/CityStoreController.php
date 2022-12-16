@@ -11,12 +11,14 @@ use Illuminate\Http\JsonResponse;
 class CityStoreController extends Controller
 {
     /**
+     * Object Constructor, requires authentication through sanctum
      *
      */
     public function __construct()
     {
         $this->middleware('auth:sanctum');
     }
+
     /**
      * This will show a resource of the selected city
      *
