@@ -44,12 +44,7 @@ class CityUpdateFeatureTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'uuid',
-                'name',
-                'coordinates' => [
-                    'lat',
-                    'long',
-                ],
+                'message',
             ]);
 
         $this->assertEquals($newName, $city->fresh()->name);
