@@ -21,6 +21,8 @@ return new class extends Migration
             $table->decimal('lat', 10, 7);
             $table->decimal('long', 10, 7);
 
+            $table->unique(['lat', 'long']);
+
             $table->timestamps();
         });
     }
