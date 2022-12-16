@@ -3,6 +3,7 @@
 namespace Domains\Location\Repositories;
 
 use App\Contracts\RepositoryInterface;
+use DistanceUnitEnum;
 use Domains\Location\Exceptions\CityNotFoundException;
 use Domains\Location\Models\City;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -91,5 +92,39 @@ class CityRepository implements RepositoryInterface
     public function delete(string|int $identifier): void
     {
         $this->get($identifier)->delete();
+    }
+
+    /**
+     * Calculate distance between two coordinates
+     *
+     * @param  string|int  $origin  Unique identifier of the origin city
+     * @param  string|int  $destination  Unique identifier of the destination city
+     * @return float
+     */
+    public function distance(string|int $origin, string|int $destination, string $unit): float
+    {
+        $origin_city = $this->get($origin);
+        $destination_city = $this->get($destination);
+
+        $theta = $origin_city->long - $destination_city->long;
+        $distance = (
+            sin(deg2rad($origin_city->lat)) *
+            sin(deg2rad($destination_city->lat))
+        ) + (
+            cos(deg2rad($origin_city->lat)) *
+            cos(deg2rad($destination_city->lat)) *
+            cos(deg2rad($theta))
+        );
+
+        $distance = acos($distance);
+        $distance = rad2deg($distance);
+
+        $distance = $distance * 60 * 1.1515;
+
+        if ($unit === 'kilometers') {
+            $distance = $distance * 1.609344;
+        }
+
+        return (round($distance, 2));
     }
 }

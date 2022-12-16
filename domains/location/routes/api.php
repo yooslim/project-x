@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('api/cities')
     ->middleware('api')
     ->group(function () {
+        Route::get('distance/{origin}/{destination}', Domains\Location\Http\Controllers\DistanceCalculatorController::class)->name('cities.distance');
         Route::get('/', Domains\Location\Http\Controllers\CityIndexController::class)->name('cities.index');
         Route::post('/', Domains\Location\Http\Controllers\CityStoreController::class)->name('cities.store');
         Route::prefix('{city}')
