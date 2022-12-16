@@ -20,5 +20,6 @@ Route::prefix('api/cities')
             ->group(function() {
                 Route::get('/', Domains\Location\Http\Controllers\CityShowController::class)->name('cities.show');
                 Route::put('/', Domains\Location\Http\Controllers\CityUpdateController::class)->name('cities.update');
+                Route::delete('/', Domains\Location\Http\Controllers\CityDeleteController::class)->name('cities.delete');
             });
 });
