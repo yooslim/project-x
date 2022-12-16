@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Utils\DomainDrivenFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Disable "data" wrapping when returning resources in customer api
+        JsonResource::withoutWrapping();
     }
 }
