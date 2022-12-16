@@ -2,7 +2,6 @@
 
 namespace Domains\Location\Tests\Unit;
 
-use Domains\Location\Exceptions\CityNotFoundException;
 use Domains\Location\Models\City;
 use Domains\Location\Repositories\CityRepository;
 use Illuminate\Contracts\Pagination\Paginator;

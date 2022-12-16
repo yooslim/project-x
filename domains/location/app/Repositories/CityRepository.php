@@ -33,6 +33,10 @@ class CityRepository implements RepositoryInterface
             throw new InvalidArgumentException('Invalid coordinates');
         }
 
+        if (empty($data['name'])) {
+            throw new InvalidArgumentException('Invalid city name');
+        }
+
         return City::create($data);
     }
 
@@ -62,6 +66,14 @@ class CityRepository implements RepositoryInterface
      */
     public function update(string|int $identifier, array $data): mixed
     {
+        if (!preg_match('/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/', $data['lat'] . ',' . $data['long'])) {
+            throw new InvalidArgumentException('Invalid coordinates');
+        }
+
+        if (empty($data['name'])) {
+            throw new InvalidArgumentException('Invalid city name');
+        }
+
         $city = $this->get($identifier);
 
         $city->update($data);
