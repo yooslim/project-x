@@ -17,6 +17,7 @@ COPY ./public/ public/
 COPY ./resources/ resources/
 COPY ./routes/ routes/
 COPY ./tests/ tests/
+COPY ./domains/ domains/
 COPY ./vendor/ vendor/
 
 ENV TZ Africa/Algiers
