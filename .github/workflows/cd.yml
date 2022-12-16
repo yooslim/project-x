@@ -25,15 +25,18 @@ jobs:
         with:
           images: yooslim/project-x-app
 
-      - name: Install composer dependencies
-        uses: php-actions/composer@v6
+      - uses: actions/checkout@v1
         with:
-          command: composer install --no-scripts
+          fetch-depth: 1
+
+      - name: Install composer dependencies
+        run: |
+          composer install --no-scripts
 
       - name: Prepare Laravel Application
-        uses: php-actions/composer@v6
-        with:
-          command: cp .env.example .env && php artisan key:generate
+        run: |
+          cp .env.example .env
+          php artisan key:generate
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
