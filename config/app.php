@@ -185,6 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Domains\Authentication\Providers\AuthenticationServiceProvider::class,
 
         /*
          * Application Service Providers...
