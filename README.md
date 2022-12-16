@@ -3,15 +3,15 @@ This is an exercise part of a technical interview.
 The API lets you manage (access, create, edit and delete) cities with their coordinates and gives you the possibility to calculate the distance between them. 
 
 ## API Presentation
-| Url path                                                | Method       | Authentication | Description                                | Form Body
-| ------------------------------------------------------- | ------------ | -------------- | ------------------------------------------ |-------------
-| /api/cities/                                            | GET          | Not required   | Listing des villes                         |  /
-| /api/cities/                                            | POST         | Required       | Création d'une ville                       | name, long, lat
-| /api/cities/{city}/                                     | GET          | Not required   | Affichage du détails d'une ville           |  /
-| /api/cities/{city}/                                     | PUT          | Required       | Mise à jour des informations d'une ville   | name, long, lat
-| /api/cities/{city}/                                     | DELETE       | Required       | Suppression d'une ville                    | /
-| /api/cities/distance/{origin}/{destination}?unit={unit} | GET          | Required       | Calcul de la distance entre deux villes    | /
-| /api/login                                              | POST         | Not required   | Authentification                           | email, password
+| Url path                                                | Method       | Authentication | Description                                | Form Body      |  Form headers  |
+| ------------------------------------------------------- | ------------ | -------------- | ------------------------------------------ |--------------- | ------------- |
+| /api/cities/                                            | GET          | Not required   | Listing des villes                         |  /             | `{ Accept:'application/json' }`  |
+| /api/cities/                                            | POST         | Required       | Création d'une ville                       | name, long, lat| `{ Accept:'application/json', Authorization: 'Bearer <token>' }`  |
+| /api/cities/{city}/                                     | GET          | Not required   | Affichage du détails d'une ville           |  /             | `{ Accept:'application/json' }`  |
+| /api/cities/{city}/                                     | PUT          | Required       | Mise à jour des informations d'une ville   | name, long, lat| `{ Accept:'application/json', Authorization: 'Bearer <token>' }`  |
+| /api/cities/{city}/                                     | DELETE       | Required       | Suppression d'une ville                    |  /             | `{ Accept:'application/json', Authorization: 'Bearer <token>' }`  |
+| /api/cities/distance/{origin}/{destination}?unit={unit} | GET          | Required       | Calcul de la distance entre deux villes    |  /             | `{ Accept:'application/json', Authorization: 'Bearer <token>' }`  |
+| /api/login                                              | POST         | Not required   | Authentification                           | email, password| `{ Accept:'application/json' }`  |
 
 ### URL & Form Parameters definition
 | Parameter name  | Type       | Validation                           | Description                                       |
