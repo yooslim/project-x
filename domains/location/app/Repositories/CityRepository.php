@@ -6,6 +6,7 @@ use App\Contracts\RepositoryInterface;
 use Domains\Location\Exceptions\CityNotFoundException;
 use Domains\Location\Models\City;
 use Illuminate\Contracts\Pagination\Paginator;
+use InvalidArgumentException;
 
 class CityRepository implements RepositoryInterface
 {
@@ -28,6 +29,10 @@ class CityRepository implements RepositoryInterface
      */
     public function store(array $data): mixed
     {
+        if (!preg_match('/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/', $data['lat'] . ',' . $data['long'])) {
+            throw new InvalidArgumentException('Invalid coordinates');
+        }
+
         return City::create($data);
     }
 

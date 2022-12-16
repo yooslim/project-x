@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('api')
     ->prefix('api')
     ->group(function() {
-        Route::post('/login', Domains\Authentication\Http\Controllers\LoginController::class);
+        Route::post('/login', Domains\Authentication\Http\Controllers\LoginController::class)->name('login');
 
         Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
             return $request->user();
