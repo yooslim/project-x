@@ -24,5 +24,7 @@ class LocationServiceProvider extends ServiceProvider
 		$this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
 		$this->loadRoutesFrom(__DIR__.'/../../routes/api.php');
+
+        $this->loadTranslationsFrom(__DIR__.'/../../lang', 'location');
 	}
 }
