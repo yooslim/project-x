@@ -36,6 +36,9 @@ The API lets you manage (access, create, edit and delete) cities with their coor
 #### Pull the project
 `git clone git@github.com:yooslim/project-x.git`
 
+#### Copy the .env example file
+`cp .env.example .env`
+
 #### Build image
 `docker-compose -f docker-compose.build.yml build`
 
@@ -43,8 +46,14 @@ The API lets you manage (access, create, edit and delete) cities with their coor
 `docker-compose -f docker-compose.local.yml up -d`
 
 ### 3. FOR TESTERS
+#### Pull the project
+`git clone git@github.com:yooslim/project-x.git`
+
+#### Copy the .env example file
+`cp .env.example .env`
+
 #### A version of the docker image is already hosted on docker hub, so you can pull it directly without pulling and building the project locally
-`APP_TAG_NAME=v1.0.0 docker-compose -f docker-compose.test.yml up -d`
+`APP_TAG_NAME=v1.0.1 docker-compose -f docker-compose.test.yml up -d`
 
 ### 4. FOR ALL
 #### Once the services up, you need to migrate the database and run the seeders in order to have some fake data to display
