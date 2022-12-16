@@ -13,7 +13,7 @@ jobs:
       image: yooslim/php8-fpm:latest
 
     services:
-      project-x-database-service:
+      project-x-database-testing-service:
         image: postgres:alpine
         env:
           POSTGRES_USER: px
