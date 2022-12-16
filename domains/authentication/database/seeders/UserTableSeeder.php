@@ -14,12 +14,14 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
-            'name' => 'Test User',
-            'email'  => 'test@live.fr',
-            'password' => bcrypt('test'),
-            'email_verified_at' => now(),
-        ]);
+        if (!User::where('email', 'test@live.fr')->exists()) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email'  => 'test@live.fr',
+                'password' => bcrypt('test'),
+                'email_verified_at' => now(),
+            ]);
+        }
 
         User::factory(10)->create();
     }
