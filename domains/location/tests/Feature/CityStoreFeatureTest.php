@@ -119,7 +119,7 @@ class CityStoreFeatureTest extends TestCase
     }
 
     /**
-     * Test that cities store returns error when invalid coordinates
+     * Test that cities store returns error when user is not authenticated
      *
      * @return void
      */
