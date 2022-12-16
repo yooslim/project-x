@@ -27,13 +27,17 @@
             "Database\\Seeders\\": "database/seeders/",
             "Domains\\Authentication\\": "domains/authentication/app/",
             "Domains\\Authentication\\Database\\Factories\\": "domains/authentication/database/factories/",
-            "Domains\\Authentication\\Database\\Seeders\\": "domains/authentication/database/seeders/"
+            "Domains\\Authentication\\Database\\Seeders\\": "domains/authentication/database/seeders/",
+            "Domains\\Location\\": "domains/location/app/",
+            "Domains\\Location\\Database\\Factories\\": "domains/location/database/factories/",
+            "Domains\\Location\\Database\\Seeders\\": "domains/location/database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Domains\\Authentication\\Tests\\": "domains/authentication/tests/"
+            "Domains\\Authentication\\Tests\\": "domains/authentication/tests/",
+            "Domains\\Location\\Tests\\": "domains/location/tests/"
         }
     },
     "scripts": {
