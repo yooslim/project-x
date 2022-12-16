@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('api/cities')
     ->middleware('api')
     ->group(function () {
-        Route::get('{city}', Domains\Location\Http\Controllers\CityShowController::class);
+        Route::get('{city}', Domains\Location\Http\Controllers\CityShowController::class)->name('cities.show');
 });
