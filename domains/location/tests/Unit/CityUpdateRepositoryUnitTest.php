@@ -2,48 +2,57 @@
 
 namespace Domains\Location\Tests\Unit;
 
+use Domains\Location\Models\City;
 use Domains\Location\Repositories\CityRepository;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
 
-class CityStoreRepositoryUnitTest extends TestCase
+class CityUpdateRepositoryUnitTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
-     * Test if city can be stored when user is authenticated
+     * Test if city can be updated
      *
      * @return void
      */
-    public function test_that_cities_can_be_stored(): void
+    public function test_that_cities_can_be_updated(): void
     {
+        $city = City::factory(1)->create()->first();
+
         $repository = new CityRepository();
 
-        $this->assertDatabaseCount('cities', 0);
+        $this->assertDatabaseCount('cities', 1);
 
-        $repository->store([
-            'name' => 'Test city',
+        $newName = Str::random(55);
+        $repository->update($city->uuid, [
+            'name' => $newName,
             'lat' => 9.56,
             'long' => 1.258,
         ]);
 
         $this->assertDatabaseCount('cities', 1);
+
+        $this->assertEquals($newName, $city->fresh()->name);
     }
 
     /**
-     * Test that city cant be stored when name is invalid
+     * Test that city cant be updated when name is invalid
      *
      * @return void
      */
-    public function test_city_cant_be_stored_when_name_is_invalid(): void
+    public function test_city_cant_be_updated_when_name_is_invalid(): void
     {
+        $city = City::factory(1)->create()->first();
+
         $repository = new CityRepository();
 
         $this->expectException(InvalidArgumentException::class);
 
         foreach ([null, []] as $name) {
-            $repository->store([
+            $repository->update($city->uuid, [
                 'name' => $name,
                 'lat' => 9.56,
                 'long' => 1.258,
@@ -52,12 +61,14 @@ class CityStoreRepositoryUnitTest extends TestCase
     }
 
     /**
-     * Test that city cant be stored when latitude and longitude are invalid
+     * Test that city cant be updated when latitude and longitude are invalid
      *
      * @return void
      */
-    public function test_city_cant_be_stored_when_coordinates_are_invalid(): void
+    public function test_city_cant_be_updated_when_coordinates_are_invalid(): void
     {
+        $city = City::factory(1)->create()->first();
+
         $repository = new CityRepository();
 
         $this->expectException(InvalidArgumentException::class);
@@ -71,7 +82,7 @@ class CityStoreRepositoryUnitTest extends TestCase
         ];
 
         foreach ($dataset as $coordinates) {
-            $repository->store([
+            $repository->update($city->uuid, [
                 'name' => 'Test city',
                 'lat' => $coordinates['lat'],
                 'long' => $coordinates['long'],

@@ -3,10 +3,14 @@
 namespace Domains\Location\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+
+use Domains\Location\Exceptions\CityNotFoundException;
 use Domains\Location\Http\Requests\CityUpdateRequest;
 use Domains\Location\Http\Resources\CityResource;
 use Domains\Location\Repositories\CityRepository;
+use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class CityUpdateController extends Controller
 {
@@ -28,10 +32,22 @@ class CityUpdateController extends Controller
      */
     public function __invoke(CityUpdateRequest $request, CityRepository $repository): CityResource|JsonResponse
     {
-        $data = $request->validated();
+        try {
+            $data = $request->validated();
 
-        $city = $repository->update($data['city'], $data);
+            $repository->update($data['city'], $data);
 
-        return new CityResource($city);
+            return response()->json([
+                'message' => trans('location::response.The city that you have selected has been successfull updated'),
+            ]);
+        } catch (CityNotFoundException $e) {
+            return response()->json([
+                'message' => trans('location::response.oups'),
+            ], Response::HTTP_NOT_FOUND);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => trans('location::response.oups'),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }
