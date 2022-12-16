@@ -54,8 +54,7 @@ class CityShowFeatureTest extends TestCase
     }
 
     /**
-     * Test that city show api returns not found error code when uuid is valid
-     * but missing from database
+     * Test that city show api returns bad request when invalid uuid format
      *
      * @return void
      */
