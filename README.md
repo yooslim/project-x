@@ -26,6 +26,16 @@ The API lets you manage (access, create, edit and delete) cities with their coor
 | email           | POST/FORM  | Required, email                      | Adresse email de l'utilisateur                    |
 | password        | POST/FORM  | Required                             | Mot de passe de l'utilisateur                     |
 
+## Request lifecycle (for developers) (use case: /api/cities/)
+![Web 1920 – 1](https://user-images.githubusercontent.com/4048632/208244256-bc0a36ef-208d-4be5-b51c-3993366341ae.jpg)
+
+1. The location domain is booted by the framework when a coming request is intercepted.
+2. The location router matches the coming request signature with a controller, so it matches with CityIndexController.
+3. The CityIndexController is booted (an instance is created which runs its constructor, so in case of an API with a required authentication, the constructor uses the sanctum package auth middleware in order to verify if the user is authenticated, otherwise, it returns a 401 HTTP response code).
+4. If ok, an instance of CityIndexRequest is injected and its logic executed (form validation rules, request preprocessing, etc.).
+5. If successful validations, the controller's logic is executed.
+6. Most of the time, the controller uses a repository to interacts with the data source (database), so an instance of the CityRepository is injected into the CityIndexController invoke action.
+7. The CityResource is used to return a formatted json response to the user. In some non model resource based API (like /api/distance), a simple json response is returned.
 
 ## How to install
 ### 1. Requirements
